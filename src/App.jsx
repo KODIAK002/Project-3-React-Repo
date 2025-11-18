@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import PalindromeList from "./components/PalindromeList";
 import "./App.css";
 
-const API_URL = "http://localhost:3000/";
+const API_URL = "http://localhost:3000/palindrome";
 
 const App = () => {
   const [palindromes, setPalindromes] = useState([]);
@@ -19,7 +19,7 @@ const App = () => {
         searchTerm ? `${API_URL}?search=${searchTerm}` : API_URL
       );
       const data = await response.json();
-      setPalindromes(data.results || []);
+      setPalindromes(data || []); //updated it so that it just looks for a data array
     } catch (error) {
       console.log("Error fetching : ", error);
     } finally {
