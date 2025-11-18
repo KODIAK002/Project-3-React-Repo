@@ -8,7 +8,7 @@ const PalindromeList = ({ palindromes }) => {
     return (
         <div className="palindromes-list">
             {palindromes.map((palindrome) => (
-                <PalindromeCard key={palindrome.name} palindrome={palindrome} />
+                <PalindromeCard key={palindrome.text /* changed .name to .text to match with the schema */} palindrome={palindrome} />
             ))}
         </div>
     );
