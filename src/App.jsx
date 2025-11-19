@@ -23,7 +23,13 @@ const App = () => {
         searchTerm ? `${API_URL}?search=${searchTerm}` : API_URL
       );
       const data = await response.json();
-      setPalindromes(data || []); //updated it so that it just looks for a data array
+      console.log("API Data: ", data);
+      if (searchTerm) {
+        const filteredPalindromes = data.filter(palindrome => palindrome.text.toLowerCase().includes(searchTerm.toLowerCase()));
+        setPalindromes(filteredPalindromes);
+      } else {
+      setPalindromes(data); //updated it so that it just looks for a data array
+      }
     } catch (error) {
       console.log("Error fetching : ", error);
     } finally {
