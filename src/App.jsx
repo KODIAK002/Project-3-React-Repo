@@ -87,13 +87,6 @@ const App = () => {
               onChange={(event) => setQuery(event.target.value)}
             />
             <button type="submit">Search</button>
-            <button
-              type="button"
-              onClick={fetchAllPalindromes}
-              className="random"
-            >
-              Surprise Me With 4
-            </button>
           </form>
           <p className="results">
             Showing {palindromes.length} result{palindromes.length !== 1 ? "s" : ""}
