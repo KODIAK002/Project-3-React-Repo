@@ -86,3 +86,29 @@ h1 {
   background-color: #A5C9FF;
   color: #111;
 }
+
+.navbar {
+  background-color: #A5C9FF;
+  border-style: ridge;
+}
+
+.navbar button {
+  background-color: #444;
+  border-style: ridge;
+  border-color: white;
+  color:white;
+}
+
+.isPalindrome {
+  flex: 1;
+  border: 2px solid #A5C9FF;;
+  padding: 10px;
+  margin: 5px;
+}
+
+.notPalindrome {
+  flex: 1;
+  border: 2px solid #A5C9FF;;
+  padding: 10px;
+  margin: 5px;
+}

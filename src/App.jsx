@@ -3,6 +3,9 @@ import { useEffect } from "react";
 //Use Effect is used to fetch data from an API or subscribe to a service or event, change the document title, set up timers or intervals or directly manipulate the DOM, in this case we are using it to fetch data from the localhost
 import PalindromeList from "./components/PalindromeList";
 import "./App.css";
+import Navbar from "./components/navbar";
+import IsPalindrome from "./components/isPalindrome";
+import NotPalindrome from "./components/notPalindrome";
 
 const API_URL = "http://localhost:3000/palindrome";
 
@@ -10,6 +13,7 @@ const App = () => {
   const [palindromes, setPalindromes] = useState([]);
   const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState("home");
 
   //Searching
   const fetchPalindromes = async (searchTerm = "") => {
@@ -61,33 +65,49 @@ const App = () => {
     fetchPalindromes(query);
   };
 //Calls fetchPalindromes with the search term from the user, fetching results based on search
-  return (
+   return (
     <div className="app">
+      <Navbar setPage={setPage} />
+
       <h1>Palindromes</h1>
-      <form onSubmit={handleSearch} className="search-bar">
-        <input
-          type="text"
-          placeholder="Search here..."
-          value={query}
-          onChange={(event) => setQuery(event.target.value)}
-        />
-        <button type="submit">Search</button>
-        <button
-        type="button"
-        onClick={fetchAllPalindromes}
-        className="random"
-        >Surprise Me With 4</button>
-      </form>
-      <p className="results">
-        Showing {palindromes.length} result{palindromes.length !== 1 ? "s" : ""}
-      </p>
-      {loading ? (
-        <p>Loading palindromes...</p>
+
+      {page === "home" ? (
+        <>
+          <form onSubmit={handleSearch} className="search-bar">
+            <input
+              type="text"
+              placeholder="Search here..."
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+            />
+            <button type="submit">Search</button>
+            <button
+              type="button"
+              onClick={fetchAllPalindromes}
+              className="random"
+            >
+              Surprise Me With 4
+            </button>
+          </form>
+          <p className="results">
+            Showing {palindromes.length} result{palindromes.length !== 1 ? "s" : ""}
+          </p>
+          {loading ? (
+            <p>Loading palindromes...</p>
+          ) : (
+            <PalindromeList palindromes={palindromes} />
+          )}
+        </>
       ) : (
-        <PalindromeList palindromes={palindromes} />
+        <div className="split-view" style={{ display: "flex", gap: "20px" }}>
+          <IsPalindrome palindromes={palindromes} />
+          <NotPalindrome palindromes={palindromes} />
+        </div>
       )}
     </div>
   );
 };
+
+
 
 export default App;
