@@ -19,7 +19,13 @@ const App = () => {
         searchTerm ? `${API_URL}?search=${searchTerm}` : API_URL
       );
       const data = await response.json();
-      setPalindromes(data || []); //updated it so that it just looks for a data array
+      console.log("API Data: ", data);
+      if (searchTerm) {
+        const filteredPalindromes = data.filter(palindrome => palindrome.text.toLowerCase().includes(searchTerm.toLowerCase()));
+        setPalindromes(filteredPalindromes);
+      } else {
+      setPalindromes(data); //updated it so that it just looks for a data array
+      }
     } catch (error) {
       console.log("Error fetching : ", error);
     } finally {
@@ -72,11 +78,6 @@ const App = () => {
           onChange={(event) => setQuery(event.target.value)}
         />
         <button type="submit">Search</button>
-        <button
-        type="button"
-        onClick={fetchAllPalindromes}
-        className="random"
-        >Surprise Me With 4</button>
       </form>
       <p className="results">
         Showing {palindromes.length} result{palindromes.length !== 1 ? "s" : ""}
